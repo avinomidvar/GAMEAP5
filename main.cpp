@@ -4,6 +4,9 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "Game.hpp"
+#include <iomanip>
+#include <string>
+#include <cstring>
 using namespace std;
 using namespace sf;
 int main()
@@ -18,6 +21,7 @@ int main()
     RenderWindow window(VideoMode(windowWidth, windowHeight), "Playing with fire");
     Clock clock_pass_time;
     Clock clock_escape_time;
+    Clock time_since_start;
      while(window.isOpen())
      {
      	Event event;
@@ -46,8 +50,9 @@ int main()
              clock_escape_time.restart();
          }
         game.update_player();
+        game.show_time(to_string(time_since_start.getElapsedTime().asSeconds()));
         game.draw(window);
-        if (game.is_over())
+        if (game.is_over(time_since_start.getElapsedTime().asSeconds()))
         {
             cout<<"GAME OVER!"<<endl;
             break;

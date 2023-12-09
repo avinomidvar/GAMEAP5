@@ -13,7 +13,7 @@ class Game
 	public: 
 	Game(float time): player(2,2)
 	{
-		Clock time_remaining;
+		game_time=time;
 	};
 	void draw(RenderWindow& window);
 	void move_player();
@@ -22,11 +22,15 @@ class Game
 	void update_player();
 	void move_player(char direction);
 	void does_player_intersect_enemies();
-	bool is_over();
+	bool is_over(float time);
+	void show_time(string remaining_time);
 
 	private:
 	Player player;
 	vector<Enemy> enemies;
+	float game_time;
+	Font font;
+	Text timer;	
 };
 #endif
 

@@ -28,7 +28,8 @@ void Game::draw(RenderWindow& window)
 	{
 		window.draw(enemies[i].get_shape());
     }
-     window.display();
+    window.draw(timer);
+    window.display();
 }
 
 void Game::update_player()
@@ -64,11 +65,20 @@ void Game::does_player_intersect_enemies()
 	}
 }
 
-bool Game::is_over()
+bool Game::is_over(float time)
 {
 	if(player.is_dead())
 		return true;
+	if(time>=(game_time*60.0))
+		return true;
 	else 
-	if(getElapsedTime().time_remaining)
 		return false;
+}
+void Game::show_time(string remaining_seconds)
+{
+	 font.loadFromFile("arial.ttf");
+     timer.setFont(font);
+     timer.setFillColor(Color::White);
+     timer.setPosition(650,550);
+     timer.setString(remaining_seconds);
 }
