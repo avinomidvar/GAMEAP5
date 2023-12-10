@@ -1,12 +1,13 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Map.hpp"
 #ifndef PLAYER
 #define PLAYER 
 class Player
 {
 	public:
-		Player(int init_x,int init_y);
+		Player(int init_x,int init_y,Map* m);
 		void move_up();
 		void move_down();
 		void move_left();
@@ -25,5 +26,7 @@ class Player
 		int lives;
 		sf::Sprite sprite;
 		sf::Texture texture;
+		Map* map;
+		bool can_player_move();
 };
 #endif 

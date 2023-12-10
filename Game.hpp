@@ -6,24 +6,26 @@
 #include "Enemy.hpp"
 #include "Player.hpp"
 #include "Game.hpp"
+#include "Map.hpp"
 using namespace std;
 using namespace sf;
+const int init_x=0;
+const int init_y=0;
 class Game
 {
 	public: 
-	Game(float time): player(2,2)
+	Game(float time,Map* m): player(init_x,init_y,m)
 	{
 		game_time=time;
 	};
 	void draw(RenderWindow& window);
-	void move_player();
 	void pass_time();
 	void add_enemies(Enemy new_enemy);
 	void update_player();
-	void move_player(char direction);
 	void does_player_intersect_enemies();
 	bool is_over(float time);
 	void show_time(string remaining_time);
+	void handle_events(sf::Event event,sf::RenderWindow& window);
 
 	private:
 	Player player;
@@ -31,6 +33,8 @@ class Game
 	float game_time;
 	Font font;
 	Text timer;	
+	void move_player(char direction);
+	Map* map;
 };
 #endif
 

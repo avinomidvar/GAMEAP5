@@ -4,39 +4,35 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "Game.hpp"
+#include "Map.hpp"
 #include <iomanip>
 #include <string>
 #include <cstring>
 using namespace std;
 using namespace sf;
+ const int windowWidth = 800;
+ const int windowHeight = 600;
 int main()
 {
-    int windowWidth = 800;
-    int windowHeight = 600;
     Enemy enemy_1(200,150,'H');
     Enemy enemy_2(300,250,'V');
-    Game game(2);
-    game.add_enemies(enemy_1);
-    game.add_enemies(enemy_2);
     RenderWindow window(VideoMode(windowWidth, windowHeight), "Playing with fire");
     Clock clock_pass_time;
     Clock clock_escape_time;
     Clock time_since_start;
+    Map new_map("map.txt");
+    Game game(5,&new_map);
+     game.add_enemies(enemy_1);
+    game.add_enemies(enemy_2);
      while(window.isOpen())
      {
      	Event event;
+        Sprite sprite;
+        Texture texture;
+        window.clear(Color(255,127,39));
      	while(window.pollEvent(event))
      	{
-     		if((event.type==Event::KeyPressed)&&(event.key.code==Keyboard::W))
-     			game.move_player('U');
-     		if((event.type==Event::KeyPressed)&&(event.key.code==Keyboard::S))
-     			game.move_player('D');
-     		if((event.type==Event::KeyPressed)&&(event.key.code==Keyboard::D))
-     			game.move_player('R');
-     		if((event.type==Event::KeyPressed)&&(event.key.code==Keyboard::A))
-     			game.move_player('L');
-            if (event.type == Event::Closed)
-                window.close();
+     		game.handle_events(event,window);
      	}
         if (clock_pass_time.getElapsedTime() >= milliseconds(50))
         {
@@ -52,6 +48,8 @@ int main()
         game.update_player();
         game.show_time(to_string(time_since_start.getElapsedTime().asSeconds()));
         game.draw(window);
+        new_map.draw(window);
+         window.display();
         if (game.is_over(time_since_start.getElapsedTime().asSeconds()))
         {
             cout<<"GAME OVER!"<<endl;

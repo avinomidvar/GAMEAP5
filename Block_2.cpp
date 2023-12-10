@@ -21,3 +21,13 @@ void Block_2::draw(RenderWindow& window)
    window.draw(sprite);
 
 }
+FloatRect Block_2::get_global_bounds() 
+{
+     Sprite sprite;
+    Texture texture;
+    if (!texture.loadFromFile(texture_address))
+            abort();
+   sprite.setTexture(texture);
+   sprite.setPosition(x, y);
+   return sprite.getGlobalBounds();
+}

@@ -29,12 +29,11 @@ void Game::draw(RenderWindow& window)
 		window.draw(enemies[i].get_shape());
     }
     window.draw(timer);
-    window.display();
 }
 
 void Game::update_player()
 {
-	player.update();
+		player.update();
 }
 
 void Game::move_player(char direction)
@@ -63,6 +62,20 @@ void Game::does_player_intersect_enemies()
 		if(player.get_global_bounds().intersects(enemies[i].get_global_bounds()))
 			player.loose_lives();
 	}
+}
+
+void Game::handle_events(Event event,RenderWindow& window)
+{
+	if((event.type==Event::KeyPressed)&&(event.key.code==Keyboard::W))
+     	move_player('U');
+    if((event.type==Event::KeyPressed)&&(event.key.code==Keyboard::S))
+     	move_player('D');
+     if((event.type==Event::KeyPressed)&&(event.key.code==Keyboard::D))
+     	move_player('R');
+     if((event.type==Event::KeyPressed)&&(event.key.code==Keyboard::A))
+     	move_player('L');
+     if (event.type == Event::Closed)
+         window.close();
 }
 
 bool Game::is_over(float time)

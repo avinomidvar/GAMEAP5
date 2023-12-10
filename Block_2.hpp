@@ -12,6 +12,7 @@ class Block_2
     public:
     Block_2(int init_x,int init_y,std::string s);
     void draw(sf::RenderWindow& window);
+    sf::FloatRect get_global_bounds();
 
     private:
 	int x;

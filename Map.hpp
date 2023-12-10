@@ -18,6 +18,7 @@ class Map
 	public:
 	Map(std::string file_name);
 	void draw(sf::RenderWindow& window);
+	bool does_player_intersect_blocks(sf::FloatRect player_bounds);
 	
 };
 #endif

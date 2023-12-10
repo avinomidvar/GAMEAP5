@@ -9,8 +9,8 @@
 #include "Block_2.hpp"
 using namespace std;
 using namespace sf;
-const int width=25;
-const int height=40;
+const int width=45;
+const int height=50;
 
 Map::Map(string file_name)
 {
@@ -36,9 +36,7 @@ void Map::create_elements(string line,int row)
 		int y_position=row*height;
 		if (line[i]=='B')
 		{
-			cout<<x_position<<" "<<y_position<<endl;
 				blocks_1.push_back(Block_1(x_position,y_position,"Block_1.png"));
-				cout<<"i detected a B"<<endl;
 		}
 		if(line[i]=='P')
 				blocks_2.push_back(Block_2(x_position,y_position,"Block_2.png"));						
@@ -51,3 +49,21 @@ void Map::draw(RenderWindow& window)
     for(int i=0;i<blocks_2.size();i++)
 		(blocks_2[i].draw(window));
 }
+ bool Map::does_player_intersect_blocks(FloatRect player_bounds)
+ {
+ 	for (int i=0;i<blocks_1.size();i++)
+ 	{
+ 		if(player_bounds.intersects(blocks_1[i].get_global_bounds()))
+ 		{
+ 			return true;
+ 		}
+ 	}
+ 	for (int i=0;i<blocks_2.size();i++)
+ 	{
+ 		if(blocks_2[i].get_global_bounds().intersects(player_bounds))
+ 		{
+ 			return true;
+ 		}
+ 	}
+ 		return false;
+ }
