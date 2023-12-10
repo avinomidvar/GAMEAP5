@@ -3,9 +3,11 @@
 #include "Player.hpp"
 using namespace std;
 using namespace sf;
+const int speed=3;
 
-Player::Player(int init_x,int init_y)
+Player::Player(int init_x,int init_y,Map* m)
 {
+    map=m;
 	x_position=init_x;
 	y_position=init_y;
     if (!texture.loadFromFile("Player.png"))
@@ -18,45 +20,80 @@ Player::Player(int init_x,int init_y)
 
 void Player::move_up()
 {
-    y_position-=10;	
-    if (y_position<=0)
-        y_position=0;
+    y_position-=speed;	
+    update();
+    if(can_player_move())
+        return;
+    else 
+    y_position+=2*speed;
+      update();
+    if(can_player_move())
+        return;
+    else 
+     y_position-=4*speed;
+     return;
+
+
 }
 
 void Player::move_down()
 {
-    y_position+=10;	
+    y_position+=speed;  
+      update();
+    if(can_player_move())
+        return;
+    else 
+     y_position-=2*speed;
+     update();
+    if(can_player_move())
+        return;
+    else 
+     y_position+=4*speed;
+     return;	
 }
 
 void Player::move_right()
 {
-    x_position+=10;	
+    x_position+=speed;  
+    update();
+    if(can_player_move())
+        return;
+    else 
+       x_position-=2*speed;
+     update();
+    if(can_player_move())
+        return;
+    else 
+     x_position+=4*speed;
+     return;
 }
 
 void Player::move_left()
 {
-    x_position-=10;	
+
+    x_position-=speed;  
+    update();
+    if(can_player_move())
+        return;
+    else 
+     x_position+=2*speed;
+    update();
+    if(can_player_move())
+        return;
+    else 
+    {
+      x_position-=4*speed;
+       return;    
+    }
 }
 
 Sprite Player::get_shape()
 {
     return sprite;
 }
-void Player::check_borders()
-{
-    if (y_position>=580)
-        y_position=580;
-    if (y_position<=0)
-        y_position=0;
-    if(x_position>=780)
-        x_position=780;
-    if(x_position<=0)
-       x_position=0;
-}
 
 void Player::update()
 {
-    check_borders();
     sprite.setPosition(x_position,y_position);
 }
 
@@ -77,6 +114,13 @@ bool Player::is_dead()
         return true;
     else 
         return false;
+}
+bool Player::can_player_move()
+{
+    if(map->does_player_intersect_blocks(get_global_bounds()))
+        return false;
+    else
+        return true;
 }
 
 
