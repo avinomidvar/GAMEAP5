@@ -12,23 +12,18 @@ using namespace std;
 using namespace sf;
  const int windowWidth = 800;
  const int windowHeight = 600;
+ const int total_time=5;
 int main()
 {
-    Enemy enemy_1(200,150,'H');
-    Enemy enemy_2(300,250,'V');
     RenderWindow window(VideoMode(windowWidth, windowHeight), "Playing with fire");
     Clock clock_pass_time;
     Clock clock_escape_time;
     Clock time_since_start;
     Map new_map("map.txt");
-    Game game(5,&new_map);
-     game.add_enemies(enemy_1);
-    game.add_enemies(enemy_2);
+    Game game(total_time,&new_map);
      while(window.isOpen())
      {
      	Event event;
-        Sprite sprite;
-        Texture texture;
         window.clear(Color(255,127,39));
      	while(window.pollEvent(event))
      	{

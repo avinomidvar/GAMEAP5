@@ -7,9 +7,9 @@ class Enemy
 {
 public: 
 	void update();
-	sf::Sprite get_shape();
-	Enemy(int init_x,int init_y,char dir_2);
+	Enemy(int init_x,int init_y,char dir_2,std::string address);
 	sf::FloatRect get_global_bounds();
+	void draw(sf::RenderWindow& window);
 
 
 private:
@@ -19,7 +19,6 @@ private:
 	char direction_2;
 	void change_direction_1();
 	void check_borders();
-	sf::Sprite sprite;
-	sf::Texture texture;
+	std::string texture_address;
 };
 #endif

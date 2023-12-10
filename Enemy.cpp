@@ -5,17 +5,15 @@ using namespace std;
 using namespace sf;
 const int speed=8;
 
-Enemy::Enemy(int init_x,int init_y,char dir_2)
+Enemy::Enemy(int init_x,int init_y,char dir_2,string address)
 {
 	srand(time(0));
 	direction_1=rand()%2;
 	direction_2=dir_2;
 	x=init_x;
 	y=init_y;
-	if (!texture.loadFromFile("Enemy.png"))
-            abort();
-    sprite.setTexture(texture);
-    sprite.setPosition(x, y);
+	texture_address=address;
+
 }
 void Enemy::change_direction_1()
 {
@@ -44,15 +42,16 @@ void Enemy::check_borders()
 			break;
 	}
 }
-Sprite Enemy::get_shape()
-{
-    return sprite;
-}
-
 
 void Enemy::update()
 {
 	check_borders();
+	Sprite sprite;
+    Texture texture;
+    if (!texture.loadFromFile(texture_address))
+            abort();
+   sprite.setTexture(texture);
+   sprite.setPosition(x, y);
 	switch(direction_2)
 	{
 	case 'H':
@@ -83,5 +82,22 @@ void Enemy::update()
 
 FloatRect Enemy::get_global_bounds() 
 {
-        return sprite.getGlobalBounds();
+	Sprite sprite;
+    Texture texture;
+    if (!texture.loadFromFile(texture_address))
+            abort();
+   sprite.setTexture(texture);
+   sprite.setPosition(x, y);
+     return sprite.getGlobalBounds();
+}
+void Enemy::draw(RenderWindow& window)
+{
+    Sprite sprite;
+    Texture texture;
+    if (!texture.loadFromFile(texture_address))
+            abort();
+   sprite.setTexture(texture);
+   sprite.setPosition(x, y);
+   window.draw(sprite);
+
 }

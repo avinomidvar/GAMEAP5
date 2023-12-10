@@ -35,13 +35,16 @@ void Map::create_elements(string line,int row)
 		int x_position=i*width;
 		int y_position=row*height;
 		if (line[i]=='B')
-		{
 				blocks_1.push_back(Block_1(x_position,y_position,"Block_1.png"));
-		}
 		if(line[i]=='P')
-				blocks_2.push_back(Block_2(x_position,y_position,"Block_2.png"));						
+				blocks_2.push_back(Block_2(x_position,y_position,"Block_2.png"));	
+		if (line[i]=='V')
+			enemies.push_back(Enemy(x_position,y_position,'V',"Enemy.png"));
+		if (line[i]=='H')
+			enemies.push_back(Enemy(x_position,y_position,'H',"Enemy.png"));
 	}	
 }
+
 void Map::draw(RenderWindow& window)
 {
 	for (int i=0;i<blocks_1.size();i++)
@@ -66,4 +69,9 @@ void Map::draw(RenderWindow& window)
  		}
  	}
  		return false;
+ }
+
+ vector<Enemy> Map::get_enemies()
+ {
+ 	return enemies;
  }

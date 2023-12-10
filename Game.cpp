@@ -26,7 +26,7 @@ void Game::draw(RenderWindow& window)
 	window.draw(player.get_shape());
 	for (int i=0;i<enemies.size();i++)
 	{
-		window.draw(enemies[i].get_shape());
+		enemies[i].draw(window);
     }
     window.draw(timer);
 }
