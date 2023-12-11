@@ -9,7 +9,7 @@
 #include "Block_2.hpp"
 using namespace std;
 using namespace sf;
-const int width=45;
+const int width=40;
 const int height=50;
 
 Map::Map(string file_name)

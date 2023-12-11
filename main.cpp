@@ -20,7 +20,6 @@ int main()
     Clock clock_escape_time;
     Clock time_since_start;
     Map new_map("map.txt");
-    cout<<"in main "<<&new_map<<endl;
     Game game(total_time,&new_map,"map.txt");
     game.create_enemies();
      while(window.isOpen())
@@ -42,8 +41,8 @@ int main()
              game.does_player_intersect_enemies();
              clock_escape_time.restart();
          }
-        game.update_player();
-        game.show_time(to_string(time_since_start.getElapsedTime().asSeconds()));
+        game.update_player(window);
+        game.show_time(time_since_start.getElapsedTime().asSeconds());
         game.draw(window);
         new_map.draw(window);
          window.display();

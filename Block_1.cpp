@@ -9,9 +9,12 @@ Block_1::Block_1(int init_x,int init_y,string address)
 	x=init_x;
 	y=init_y;
    texture_address=address;
+   destroy=false;
 }
 void Block_1::draw(RenderWindow& window)
 {
+    if (destroy)
+        return;
     Sprite sprite;
     Texture texture;
     if (!texture.loadFromFile(texture_address))

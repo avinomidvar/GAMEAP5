@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Map.hpp"
+#include "Bomb.hpp"
 #ifndef PLAYER
 #define PLAYER 
 class Player
@@ -18,7 +19,8 @@ class Player
 		void loose_lives();
 		sf::FloatRect get_global_bounds();
 		bool is_dead();
-
+		void update_player_bombs(sf::RenderWindow& window);
+		void drop_bomb();
 	private:
 		int x_position;
 		int y_position;
@@ -28,5 +30,7 @@ class Player
 		sf::Texture texture;
 		Map* map;
 		bool can_player_move();
+		void create_bombs();
+		std::vector<Bomb> bombs;
 };
 #endif 

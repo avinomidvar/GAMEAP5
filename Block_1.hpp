@@ -17,5 +17,6 @@ class Block_1
 	int x;
 	int y;
 	std::string texture_address;
+    bool destroy;
 };
 #endif

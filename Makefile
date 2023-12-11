@@ -1,7 +1,7 @@
 all: a.out
 
-a.out: main.o Player.o Enemy.o Game.o Map.o Block_1.o Block_2.o -lsfml-graphics -lsfml-window -lsfml-system
-	   g++ -std=c++20 main.o Player.o Enemy.o Game.o Map.o Block_1.o Block_2.o -lsfml-graphics -lsfml-window -lsfml-system
+a.out: main.o Player.o Enemy.o Game.o Map.o Block_1.o Block_2.o Bomb.o -lsfml-graphics -lsfml-window -lsfml-system
+	   g++ -std=c++20 main.o Player.o Enemy.o Game.o Map.o Block_1.o Block_2.o Bomb.o -lsfml-graphics -lsfml-window -lsfml-system
 
 main.o: main.cpp Player.hpp Enemy.hpp
 	    g++ -std=c++20 -c main.cpp
@@ -9,7 +9,7 @@ main.o: main.cpp Player.hpp Enemy.hpp
 Game.o: Game.cpp Game.hpp Player.hpp Enemy.hpp
 	g++ -std=c++20 -c Game.cpp
 
-Player.o: Player.cpp Player.hpp
+Player.o: Player.cpp Player.hpp Bomb.hpp
 		  g++ -std=c++20 -c Player.cpp
 
 Enemy.o: Enemy.cpp Enemy.hpp Map.hpp
@@ -23,6 +23,9 @@ Block_1.o: Block_1.cpp Block_1.hpp
 
 Block_2.o: Block_2.cpp Block_2.hpp
 	g++ -std=c++20 -c Block_2.cpp
+
+Bomb.o: Bomb.cpp Bomb.hpp
+	g++ -std=c++20 -c Bomb.cpp
 
 clean:
 	rm*.o

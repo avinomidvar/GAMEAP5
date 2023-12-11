@@ -24,10 +24,10 @@ class Game
 	void draw(sf::RenderWindow& window);
 	void pass_time();
 	void add_enemies(Enemy new_enemy);
-	void update_player();
+	void update_player(sf::RenderWindow& window);
 	void does_player_intersect_enemies();
 	bool is_over(float time);
-	void show_time(std::string remaining_time);
+	void show_time(float time);
 	void handle_events(sf::Event event,sf::RenderWindow& window);
 	void create_enemies();
 

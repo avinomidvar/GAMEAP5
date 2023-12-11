@@ -1,13 +1,16 @@
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <math.h>
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "Game.hpp"
 using namespace std;
 using namespace sf;
-const int width=45;
+const int width=40;
 const int height=50;
+const int window_height=600;
+const int window_width=800;
 
 
 void Game::pass_time()
@@ -20,7 +23,6 @@ void Game::pass_time()
 
 void Game::draw(RenderWindow& window)
 {
-	window.clear(Color(255,127,39));
 	window.draw(player.get_shape());
 	for (int i=0;i<enemies.size();i++)
 	{
@@ -29,9 +31,10 @@ void Game::draw(RenderWindow& window)
     window.draw(timer);
 }
 
-void Game::update_player()
+void Game::update_player(RenderWindow& window)
 {
 		player.update();
+		player.update_player_bombs(window);
 }
 
 void Game::move_player(char direction)
@@ -72,31 +75,29 @@ void Game::handle_events(Event event,RenderWindow& window)
      	move_player('R');
      if((event.type==Event::KeyPressed)&&(event.key.code==Keyboard::A))
      	move_player('L');
+     if((event.type==Event::KeyPressed)&&(event.key.code==Keyboard::X))
+     	player.drop_bomb();
      if (event.type == Event::Closed)
          window.close();
 }
 
 bool Game::is_over(float time)
 {
-	if(player.is_dead())
+	if(player.is_dead()||(time>=(game_time*60.0)))
 		return true;
-	if(time>=(game_time*60.0))
-		return true;
-	else 
-		return false;
 }
-void Game::show_time(string remaining_seconds)
+void Game::show_time(float time)
 {
+	 string remaining_time=(to_string(int(floor(time/60))).append(":")).append(to_string(int(time-floor(time/60)*60)));
 	 font.loadFromFile("arial.ttf");
      timer.setFont(font);
      timer.setFillColor(Color::White);
-     timer.setPosition(650,550);
-     timer.setString(remaining_seconds);
+     timer.setPosition(window_width-70,window_height-50);
+     timer.setString(remaining_time);
 }
 
 void Game::create_enemies()
 {
-	cout<<"in game "<<map<<endl;
 	ifstream file;
     file.open("map.txt");
 	int row=0;  

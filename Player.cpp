@@ -1,9 +1,11 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
+#include "Bomb.hpp"
 using namespace std;
 using namespace sf;
 const int speed=3;
+const int maximum_bombs=3;
 
 Player::Player(int init_x,int init_y,Map* m)
 {
@@ -15,6 +17,7 @@ Player::Player(int init_x,int init_y,Map* m)
     sprite.setTexture(texture);
     sprite.setPosition(x_position, y_position);
     lives=6;
+    create_bombs();
  
 }
 
@@ -121,6 +124,38 @@ bool Player::can_player_move()
         return false;
     else
         return true;
+}
+void Player::create_bombs()
+{
+    for (int i=0;i<maximum_bombs;i++)
+    {
+        bombs.push_back(Bomb(0,0,false,map,"Bomb.png"));
+    }
+}
+
+void Player::drop_bomb()
+{
+    for (int i=0;i<maximum_bombs;i++)
+    {
+        if(!bombs[i].is_on())
+        {
+            cout<<"I am heere X"<<endl;
+             bombs[i].put_bomb(x_position,y_position);
+             break;
+        }
+    }
+}
+
+void Player::update_player_bombs(RenderWindow& window)
+{
+    for(int i=0;i<maximum_bombs;i++)
+    {
+        bombs[i].check_end_of_bombs();
+        if(bombs[i].is_on())
+        {
+            bombs[i].draw(window);
+        }
+    }
 }
 
 
