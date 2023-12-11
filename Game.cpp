@@ -6,11 +6,9 @@
 #include "Game.hpp"
 using namespace std;
 using namespace sf;
+const int width=45;
+const int height=50;
 
-void Game::add_enemies(Enemy new_enemy)
-{
-	enemies.push_back(new_enemy);
-}
 
 void Game::pass_time()
 {
@@ -94,4 +92,29 @@ void Game::show_time(string remaining_seconds)
      timer.setFillColor(Color::White);
      timer.setPosition(650,550);
      timer.setString(remaining_seconds);
+}
+
+void Game::create_enemies()
+{
+	cout<<"in game "<<map<<endl;
+	ifstream file;
+    file.open("map.txt");
+	int row=0;  
+	string line;  
+    while (getline(file, line))
+    {
+       for (int i=0; i<line.length();i++)
+	  {
+		int x_position=i*width;
+		int y_position=row*height;
+	    if (line[i]=='V')
+	    {
+			enemies.push_back(Enemy(x_position,y_position,'V',"Enemy.png",map));
+	    }
+		if (line[i]=='H')
+			enemies.push_back(Enemy(x_position,y_position,'H',"Enemy.png",map));
+	  }
+       row++;
+    }
+    file.close();
 }

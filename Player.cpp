@@ -117,7 +117,7 @@ bool Player::is_dead()
 }
 bool Player::can_player_move()
 {
-    if(map->does_player_intersect_blocks(get_global_bounds()))
+    if(map->does_intersect_blocks(get_global_bounds()))
         return false;
     else
         return true;

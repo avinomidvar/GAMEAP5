@@ -1,11 +1,12 @@
 #include <iostream>
 #include <ctime>
 #include "Enemy.hpp"
+#include "Map.hpp"
 using namespace std;
 using namespace sf;
-const int speed=8;
+const int speed=4;
 
-Enemy::Enemy(int init_x,int init_y,char dir_2,string address)
+Enemy::Enemy(int init_x,int init_y,char dir_2,string address,Map* m)
 {
 	srand(time(0));
 	direction_1=rand()%2;
@@ -13,6 +14,7 @@ Enemy::Enemy(int init_x,int init_y,char dir_2,string address)
 	x=init_x;
 	y=init_y;
 	texture_address=address;
+	map=m;
 
 }
 void Enemy::change_direction_1()
@@ -28,7 +30,7 @@ void Enemy::change_direction_1()
 	}
 }
 
-void Enemy::check_borders()
+void Enemy::check_borders_and_walls()
 {
 	switch (direction_2)
 	{
@@ -41,17 +43,13 @@ void Enemy::check_borders()
 				change_direction_1();
 			break;
 	}
+	if(map->does_intersect_blocks(get_global_bounds()))
+		change_direction_1();
 }
 
 void Enemy::update()
 {
-	check_borders();
-	Sprite sprite;
-    Texture texture;
-    if (!texture.loadFromFile(texture_address))
-            abort();
-   sprite.setTexture(texture);
-   sprite.setPosition(x, y);
+	check_borders_and_walls();
 	switch(direction_2)
 	{
 	case 'H':
@@ -77,7 +75,6 @@ void Enemy::update()
 		}
 		break;
 	}
-	sprite.setPosition(x,y);
 }
 
 FloatRect Enemy::get_global_bounds() 
@@ -101,3 +98,4 @@ void Enemy::draw(RenderWindow& window)
    window.draw(sprite);
 
 }
+

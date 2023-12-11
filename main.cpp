@@ -20,7 +20,9 @@ int main()
     Clock clock_escape_time;
     Clock time_since_start;
     Map new_map("map.txt");
-    Game game(total_time,&new_map);
+    cout<<"in main "<<&new_map<<endl;
+    Game game(total_time,&new_map,"map.txt");
+    game.create_enemies();
      while(window.isOpen())
      {
      	Event event;

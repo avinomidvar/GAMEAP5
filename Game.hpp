@@ -3,6 +3,9 @@
 #include <iostream>
 #include <ctime>
 #include <vector>
+#include <fstream>
+#include <string>
+#include <cstring>
 #include "Enemy.hpp"
 #include "Player.hpp"
 #include "Game.hpp"
@@ -12,11 +15,11 @@ const int init_y=0;
 class Game
 {
 	public: 
-	Game(float time,Map* m): player(init_x,init_y,m)
+	Game(float time,Map* m,std::string address): player(init_x,init_y,m)
 	{
+		map_address=address;
 		game_time=time;
-		enemies=m->get_enemies();
-
+		map=m;
 	};
 	void draw(sf::RenderWindow& window);
 	void pass_time();
@@ -26,6 +29,7 @@ class Game
 	bool is_over(float time);
 	void show_time(std::string remaining_time);
 	void handle_events(sf::Event event,sf::RenderWindow& window);
+	void create_enemies();
 
 	private:
 	Player player;
@@ -35,6 +39,7 @@ class Game
 	sf::Text timer;	
 	void move_player(char direction);
 	Map* map;
+	std::string map_address;
 };
 #endif
 

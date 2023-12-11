@@ -17,7 +17,6 @@ Map::Map(string file_name)
 	ifstream file;
     file.open(file_name);
     string line;
-    getline(file,line);
    // float game_time=stof(line)*60.f;
 	int row=0;    
     while (getline(file, line))
@@ -38,10 +37,6 @@ void Map::create_elements(string line,int row)
 				blocks_1.push_back(Block_1(x_position,y_position,"Block_1.png"));
 		if(line[i]=='P')
 				blocks_2.push_back(Block_2(x_position,y_position,"Block_2.png"));	
-		if (line[i]=='V')
-			enemies.push_back(Enemy(x_position,y_position,'V',"Enemy.png"));
-		if (line[i]=='H')
-			enemies.push_back(Enemy(x_position,y_position,'H',"Enemy.png"));
 	}	
 }
 
@@ -52,26 +47,21 @@ void Map::draw(RenderWindow& window)
     for(int i=0;i<blocks_2.size();i++)
 		(blocks_2[i].draw(window));
 }
- bool Map::does_player_intersect_blocks(FloatRect player_bounds)
+ bool Map::does_intersect_blocks(FloatRect bounds)
  {
  	for (int i=0;i<blocks_1.size();i++)
  	{
- 		if(player_bounds.intersects(blocks_1[i].get_global_bounds()))
+ 		if(bounds.intersects(blocks_1[i].get_global_bounds()))
  		{
  			return true;
  		}
  	}
  	for (int i=0;i<blocks_2.size();i++)
  	{
- 		if(blocks_2[i].get_global_bounds().intersects(player_bounds))
+ 		if(blocks_2[i].get_global_bounds().intersects(bounds))
  		{
  			return true;
  		}
  	}
  		return false;
- }
-
- vector<Enemy> Map::get_enemies()
- {
- 	return enemies;
  }

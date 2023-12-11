@@ -12,10 +12,10 @@ Game.o: Game.cpp Game.hpp Player.hpp Enemy.hpp
 Player.o: Player.cpp Player.hpp
 		  g++ -std=c++20 -c Player.cpp
 
-Enemy.o: Enemy.cpp Enemy.hpp
+Enemy.o: Enemy.cpp Enemy.hpp Map.hpp
 	g++ -std=c++20 -c Enemy.cpp
 
-Map.o: Map.cpp Map.hpp Block_1.hpp Block_2.hpp
+Map.o: Map.cpp Map.hpp Block_1.hpp Block_2.hpp Enemy.hpp
 	g++ -std=c++20 -c Map.cpp
 
 Block_1.o: Block_1.cpp Block_1.hpp
