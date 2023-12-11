@@ -5,7 +5,7 @@
 #include "Map.hpp"
 using namespace std;
 using namespace sf;
-const int bomb_time=20000;
+const int bomb_time=5000;
 Bomb::Bomb(int init_x,int init_y, bool init_state,Map* m,string address)
 {
 	x=init_x;
@@ -41,6 +41,7 @@ void Bomb::check_end_of_bombs()
 {
 	if (state&&(explosion.getElapsedTime()>=milliseconds(bomb_time)))
 	{
+		map->destroy_blocks(x,y);
 		state=false;		
 	}
 }

@@ -19,6 +19,7 @@ class Map
 	Map(std::string file_name);
 	void draw(sf::RenderWindow& window);
 	bool does_intersect_blocks(sf::FloatRect bounds);
+	void destroy_blocks(int x, int y);
 	
 };
 #endif

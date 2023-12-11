@@ -139,7 +139,6 @@ void Player::drop_bomb()
     {
         if(!bombs[i].is_on())
         {
-            cout<<"I am heere X"<<endl;
              bombs[i].put_bomb(x_position,y_position);
              break;
         }
