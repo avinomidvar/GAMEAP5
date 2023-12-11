@@ -5,9 +5,13 @@
 #include <fstream>
 #include <iomanip>
 #include <cmath>
+#include <algorithm>
+#include <cstdlib>
+#include <ctime>
 #include "Map.hpp"
 #include "Block_1.hpp"
 #include "Block_2.hpp"
+#include "Key.hpp"
 using namespace std;
 using namespace sf;
 const int width=40;
@@ -15,7 +19,8 @@ const int height=50;
 const int window_height=600;
 const int window_width=800;
 const int n_vertical=11;
-const int n_horizonal=20;
+const int n_horizontal=20;
+const int num_of_keys=3;
 
 Map::Map(string file_name)
 {
@@ -29,6 +34,7 @@ Map::Map(string file_name)
        row++;
     }
     file.close();
+    create_keys();
 }
 
 void Map::create_elements(string line,int row)
@@ -46,6 +52,8 @@ void Map::create_elements(string line,int row)
 
 void Map::draw(RenderWindow& window)
 {
+	for (int i=0;i<keys.size();i++)
+			keys[i].draw(window);
 	for (int i=0;i<blocks_1.size();i++)
 	    (blocks_1[i].draw(window));
     for(int i=0;i<blocks_2.size();i++)
@@ -76,18 +84,16 @@ void Map::draw(RenderWindow& window)
  void Map::destroy_blocks(int x,int y)
  {
  	bool is_found=false;
- 	cout<<"I am here"<<endl;
  	int near_x;
  	int near_y;
  	for (int j=0;j<n_vertical;j++)
  	{
  		if(is_found)
  			break;
- 		for (int i=0;i<n_horizonal;i++)
+ 		for (int i=0;i<n_horizontal;i++)
  		{
  			near_x=i*width;
  			near_y=j*height;
- 			cout<<abs(x-near_x)<<" "<<abs(y-near_y)<<endl;
  			if((abs(x-near_x)<10)&&(abs(y-near_y)<10))
  				{
  					is_found=true;
@@ -97,7 +103,6 @@ void Map::draw(RenderWindow& window)
  		}
 
  	}
- 	cout<<near_x<<" "<<near_y<<endl;
  	for(int i=0;i<blocks_1.size();i++)
  	{
  		blocks_1[i].destroy(near_x+width,near_y);
@@ -106,3 +111,29 @@ void Map::draw(RenderWindow& window)
  		blocks_1[i].destroy(near_x,near_y-height);
  	}
  }
+
+class Point 
+{
+  public: 
+  	 Point(int init_x, int init_y)
+  	 { x=init_x;
+  	 	y=init_y;
+	}
+	int get_x(){return x;};
+	int get_y(){return y;};
+ private:
+    int x;
+    int y;
+};
+
+void Map::create_keys()
+{
+	srand(time(0));
+	vector<Block_1> temp_blocks=blocks_1;
+	random_shuffle(temp_blocks.begin(),temp_blocks.end());
+	for (int i=0;i<num_of_keys; i++)
+	{
+		keys.push_back(temp_blocks[i].put_key_under());
+	}
+	cout<<keys.size()<<endl;
+}

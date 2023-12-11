@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iomanip>
 #include <SFML/Graphics.hpp>
+#include "Key.hpp"
 #ifndef BLOCK_1
 #define BLOCK_1
 class Block_1
@@ -15,6 +16,7 @@ class Block_1
     sf::FloatRect get_global_bounds();
     void destroy(int destruct_x, int destruct_y);
     bool is_destroyed(){return is_destroy;};
+    Key put_key_under();
     
     private:
 	int x;
