@@ -3,10 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include "Block_1.hpp"
 #include "Key.hpp"
+#include "Heart.hpp"
+#include "Shoes.hpp"
 using namespace std;
 using namespace sf;
 const string key_address="Key.png";
 const string Heart_address="Heart.png";
+const string Shoes_address="Shoes.png";
 
 Block_1::Block_1(int init_x,int init_y,string address)
 {
@@ -63,5 +66,10 @@ Key Block_1::put_key_under()
 Heart Block_1::put_heart_under()
 {
     return(Heart((x+3),(y+3),Heart_address));
+}
+
+Shoes Block_1::put_shoes_under()
+{
+    return(Shoes((x+3),(y+3),Shoes_address));
 }
 

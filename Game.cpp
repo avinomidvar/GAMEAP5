@@ -42,6 +42,7 @@ void Game::update_player(RenderWindow& window)
 		player.update_player_bombs(window);
 		player.catch_keys();
 		player.catch_hearts();
+		player.catch_shoes();
 }
 
 void Game::move_player(char direction)
@@ -65,7 +66,7 @@ void Game::move_player(char direction)
 
 void Game::does_player_intersect_enemies()
 {
-	if(clock_escape_time.getElapsedTime() >= milliseconds(400))
+	if(clock_escape_time.getElapsedTime() >= milliseconds(1000))
 	{
 	for (int i=0;i<enemies.size();i++)
 	{

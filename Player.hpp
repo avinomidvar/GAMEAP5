@@ -23,6 +23,7 @@ class Player
 		void drop_bomb();
 		void catch_keys();
 		void catch_hearts();
+		void catch_shoes();
 		bool does_win();
 	private:
 		int x_position;

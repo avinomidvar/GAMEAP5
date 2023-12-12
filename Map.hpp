@@ -11,6 +11,7 @@
 #include "Key.hpp"
 #include "Door.hpp"
 #include "Heart.hpp"
+#include "Shoes.hpp"
 class Map
 {
 	private:
@@ -19,6 +20,7 @@ class Map
 	std::vector<Key> keys;
 	std::vector<Door> doors;
 	std::vector<Heart> hearts;
+	std::vector<Shoes> shoes;
 	void create_elements(std::string line, int row);
 	void create_keys_and_powerups();
 		
@@ -30,5 +32,7 @@ class Map
 	bool does_player_intersect_keys(sf::FloatRect bounds);	
 	bool does_player_intersect_door(sf::FloatRect bounds);
 	bool does_player_intersect_heart(sf::FloatRect bounds);
+	bool does_player_intersect_shoes(sf::FloatRect bounds);
+
 };
 #endif

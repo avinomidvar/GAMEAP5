@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include "Key.hpp"
 #include "Heart.hpp"
+#include "Shoes.hpp"
 #ifndef BLOCK_1
 #define BLOCK_1
 class Block_1
@@ -18,6 +19,7 @@ class Block_1
     bool is_destroyed(){return is_destroy;};
     Key put_key_under();
     Heart put_heart_under();
+    Shoes put_shoes_under();
     
     private:
 	int x;

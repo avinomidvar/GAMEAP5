@@ -12,7 +12,7 @@ const int window_width=800;
 const int n_vertical=15;
 const int n_horizontal=32;
 const int num_of_keys=3;
-const int total_lives=5;
+const int total_lives=2;
 
 Player::Player(int init_x,int init_y,Map* m)
 {
@@ -147,20 +147,25 @@ void Player::drop_bomb()
     bool is_found=false;
     int near_x;
     int near_y;
-    for (int j=0;j<n_vertical;j++)
+    for (int k=10;k<=18;k++)
     {
+        if(is_found)
+            break;
+    for (int j=0;j<n_vertical;j++)
+      {
         if(is_found)
             break;
         for (int i=0;i<n_horizontal;i++)
         {
             near_x=i*width;
             near_y=j*height;
-            if((abs(x_position-near_x)<10)&&(abs(y_position-near_y)<10))
+            if((abs(x_position-near_x)<k)&&(abs(y_position-near_y)<k))
                 {
                     is_found=true;
                     break;
                 }           
         }
+      }
     }
     for (int i=0;i<maximum_bombs;i++)
     {
@@ -221,6 +226,15 @@ void Player::catch_hearts()
                     lives++;
                     cout<<"One life gained"<<endl;
                }
+        }
+}
+
+void Player::catch_shoes()
+{
+    if(map->does_player_intersect_shoes(get_global_bounds()))
+        {
+                    speed=speed*2;
+                    cout<<"Speed boosted"<<endl;
         }
 }
 

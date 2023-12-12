@@ -13,8 +13,11 @@
 #include "Block_2.hpp"
 #include "Key.hpp"
 #include "Door.hpp"
+#include "Shoes.hpp"
+
 using namespace std;
 using namespace sf;
+
 const int width=25;
 const int height=40;
 const int window_height=600;
@@ -60,6 +63,8 @@ void Map::create_elements(string line,int row)
 
 void Map::draw(RenderWindow& window)
 {
+	for(int i=0;i<shoes.size();i++)
+			shoes[i].draw(window);
 	for (int i=0;i<hearts.size();i++)
 			hearts[i].draw(window);
 	for (int i=0;i<keys.size();i++)
@@ -128,6 +133,7 @@ void Map::create_keys_and_powerups()
 		keys.push_back(temp_blocks[i].put_key_under());
 	}
 	hearts.push_back(temp_blocks[num_of_keys].put_heart_under());
+	shoes.push_back(temp_blocks[num_of_keys+1].put_shoes_under());
 
 }
 
@@ -162,6 +168,19 @@ bool Map::does_player_intersect_heart(FloatRect bounds)
  		if(hearts[i].get_global_bounds().intersects(bounds)&&(!hearts[i].is_found()))
  		{
  			hearts[i].heart_got();
+ 			return true;
+ 		}
+ 	}
+ 	return false;
+}
+
+bool Map::does_player_intersect_shoes(FloatRect bounds)
+{
+	for (int i=0;i<hearts.size();i++)
+ 	{
+ 		if(shoes[i].get_global_bounds().intersects(bounds)&&(!shoes[i].is_found()))
+ 		{
+ 			shoes[i].shoes_got();
  			return true;
  		}
  	}
