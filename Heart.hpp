@@ -11,6 +11,7 @@ class Heart
 	void draw(sf::RenderWindow& window);
     sf::FloatRect get_global_bounds();
     bool is_found(){return found;};
+    void heart_got();
 
 	private:
 	int x;

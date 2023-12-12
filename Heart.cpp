@@ -14,6 +14,8 @@ Heart::Heart(int init_x,int init_y,string address)
 }
 void Heart::draw(RenderWindow& window)
 {
+    if(found)
+        return;
 	Sprite sprite;
     Texture texture;
     if (!texture.loadFromFile(texture_address))
@@ -32,4 +34,8 @@ FloatRect Heart::get_global_bounds()
    sprite.setTexture(texture);
    sprite.setPosition(x, y);
    return sprite.getGlobalBounds();
+}
+void Heart::heart_got()
+{
+    found=true;
 }

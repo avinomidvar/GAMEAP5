@@ -160,6 +160,7 @@ bool Map::does_player_intersect_heart(FloatRect bounds)
  	{
  		if(hearts[i].get_global_bounds().intersects(bounds)&&(!hearts[i].is_found()))
  		{
+ 			hearts[i].heart_got();
  			return true;
  		}
  	}
