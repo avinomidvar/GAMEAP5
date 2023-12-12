@@ -7,8 +7,8 @@
 #include "Game.hpp"
 using namespace std;
 using namespace sf;
-const int width=40;
-const int height=50;
+const int width=25;
+const int height=40;
 const int window_height=600;
 const int window_width=800;
 
@@ -35,6 +35,7 @@ void Game::update_player(RenderWindow& window)
 {
 		player.update();
 		player.update_player_bombs(window);
+		player.catch_keys();
 }
 
 void Game::move_player(char direction)
@@ -84,7 +85,18 @@ void Game::handle_events(Event event,RenderWindow& window)
 bool Game::is_over(float time)
 {
 	if(player.is_dead()||(time>=(game_time*60.0)))
+	{
+		cout<<"GAME OVER!"<<endl;
 		return true;
+	}
+
+	if(player.does_win())
+	{
+		cout<<"YOU WON!"<<endl;
+		return true;
+	}
+	else 
+	return false;
 }
 void Game::show_time(float time)
 {
@@ -106,8 +118,8 @@ void Game::create_enemies()
     {
        for (int i=0; i<line.length();i++)
 	  {
-		int x_position=i*width;
-		int y_position=row*height;
+		int x_position=i*width+2;
+		int y_position=row*height+2;
 	    if (line[i]=='V')
 	    {
 			enemies.push_back(Enemy(x_position,y_position,'V',"Enemy.png",map));

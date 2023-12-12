@@ -12,14 +12,15 @@
 #include "Block_1.hpp"
 #include "Block_2.hpp"
 #include "Key.hpp"
+#include "Door.hpp"
 using namespace std;
 using namespace sf;
-const int width=40;
-const int height=50;
+const int width=25;
+const int height=40;
 const int window_height=600;
 const int window_width=800;
-const int n_vertical=11;
-const int n_horizontal=20;
+const int n_vertical=32;
+const int n_horizontal=15;
 const int num_of_keys=3;
 
 Map::Map(string file_name)
@@ -43,10 +44,12 @@ void Map::create_elements(string line,int row)
 	{
 		int x_position=i*width;
 		int y_position=row*height;
-		if (line[i]=='B')
+		if ((line[i]=='B')||(line[i]=='D'))
 				blocks_1.push_back(Block_1(x_position,y_position,"Block_1.png"));
 		if(line[i]=='P')
-				blocks_2.push_back(Block_2(x_position,y_position,"Block_2.png"));	
+				blocks_2.push_back(Block_2(x_position,y_position,"Block_2.png"));
+		if(line[i]=='D')
+				doors.push_back(Door(x_position,y_position,"Door.png"));
 	}	
 }
 
@@ -54,6 +57,8 @@ void Map::draw(RenderWindow& window)
 {
 	for (int i=0;i<keys.size();i++)
 			keys[i].draw(window);
+	for (int i=0;i<doors.size();i++)
+			doors[i].draw(window);
 	for (int i=0;i<blocks_1.size();i++)
 	    (blocks_1[i].draw(window));
     for(int i=0;i<blocks_2.size();i++)
@@ -83,32 +88,12 @@ void Map::draw(RenderWindow& window)
 
  void Map::destroy_blocks(int x,int y)
  {
- 	bool is_found=false;
- 	int near_x;
- 	int near_y;
- 	for (int j=0;j<n_vertical;j++)
- 	{
- 		if(is_found)
- 			break;
- 		for (int i=0;i<n_horizontal;i++)
- 		{
- 			near_x=i*width;
- 			near_y=j*height;
- 			if((abs(x-near_x)<10)&&(abs(y-near_y)<10))
- 				{
- 					is_found=true;
- 					break;
- 				}
- 				
- 		}
-
- 	}
  	for(int i=0;i<blocks_1.size();i++)
  	{
- 		blocks_1[i].destroy(near_x+width,near_y);
- 		blocks_1[i].destroy(near_x-width,near_y);
- 		blocks_1[i].destroy(near_x,near_y+height);
- 		blocks_1[i].destroy(near_x,near_y-height);
+ 		blocks_1[i].destroy(x+width,y);
+ 		blocks_1[i].destroy(x-width,y);
+ 		blocks_1[i].destroy(x,y+height);
+ 		blocks_1[i].destroy(x,y-height);
  	}
  }
 
@@ -136,4 +121,29 @@ void Map::create_keys()
 		keys.push_back(temp_blocks[i].put_key_under());
 	}
 	cout<<keys.size()<<endl;
+}
+
+bool Map::does_player_intersect_keys(FloatRect bounds)
+{
+	for (int i=0;i<keys.size();i++)
+ 	{
+ 		if(keys[i].get_global_bounds().intersects(bounds)&&(!keys[i].is_found()))
+ 		{
+ 			keys[i].key_got();
+ 			return true;
+ 		}
+ 	}
+}
+
+bool Map::does_player_intersect_door(FloatRect bounds)
+{
+	for (int i=0;i<doors.size();i++)
+ 	{
+ 		if(doors[i].get_global_bounds().intersects(bounds))
+ 		{
+ 			return true;
+ 		}
+ 	}
+ 	return false;
+
 }

@@ -21,6 +21,8 @@ class Player
 		bool is_dead();
 		void update_player_bombs(sf::RenderWindow& window);
 		void drop_bomb();
+		void catch_keys();
+		bool does_win();
 	private:
 		int x_position;
 		int y_position;
@@ -32,5 +34,7 @@ class Player
 		bool can_player_move();
 		void create_bombs();
 		std::vector<Bomb> bombs;
+		int total_keys;
+		bool got_all_keys();
 };
 #endif 

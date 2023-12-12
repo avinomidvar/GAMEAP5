@@ -10,11 +10,13 @@ class Key
 	Key(int x,int y,std::string address);
 	void draw(sf::RenderWindow& window);
     sf::FloatRect get_global_bounds();
+    void key_got();
+    bool is_found();
 
 	private:
-	bool is_found;
 	int x;
 	int y;
-	std::string texture_address;	
+	std::string texture_address;
+	bool is_got;	
 };
 #endif

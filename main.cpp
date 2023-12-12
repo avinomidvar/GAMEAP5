@@ -13,14 +13,15 @@ using namespace sf;
  const int windowWidth = 800;
  const int windowHeight = 600;
  const int total_time=5;
+ const string map_address="map.txt";
 int main()
 {
     RenderWindow window(VideoMode(windowWidth, windowHeight), "Playing with fire");
     Clock clock_pass_time;
     Clock clock_escape_time;
     Clock time_since_start;
-    Map new_map("map.txt");
-    Game game(total_time,&new_map,"map.txt");
+    Map new_map(map_address);
+    Game game(total_time,&new_map,map_address);
     game.create_enemies();
      while(window.isOpen())
      {
@@ -46,11 +47,8 @@ int main()
         game.draw(window);
         new_map.draw(window);
          window.display();
-        if (game.is_over(time_since_start.getElapsedTime().asSeconds()))
-        {
-            cout<<"GAME OVER!"<<endl;
+        if(game.is_over(time_since_start.getElapsedTime().asSeconds()))
             break;
-        }
     }
 
 }
