@@ -15,10 +15,9 @@ const int init_y=0;
 class Game
 {
 	public: 
-	Game(float time,Map* m,std::string address): player(init_x,init_y,m)
+	Game(Map* m,std::string address): player(init_x,init_y,m)
 	{
 		map_address=address;
-		game_time=time;
 		map=m;
 	};
 	void draw(sf::RenderWindow& window);

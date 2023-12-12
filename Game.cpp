@@ -124,7 +124,9 @@ void Game::create_enemies()
 	ifstream file;
     file.open("map.txt");
 	int row=0;  
-	string line;  
+	string line; 
+	getline(file, line);
+	game_time=stof(line);
     while (getline(file, line))
     {
        for (int i=0; i<line.length();i++)

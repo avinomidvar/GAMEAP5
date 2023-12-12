@@ -32,6 +32,7 @@ Map::Map(string file_name)
 	ifstream file;
     file.open(file_name);
     string line;
+    getline(file, line);
 	int row=0;    
     while (getline(file, line))
     {

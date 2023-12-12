@@ -12,13 +12,12 @@ using namespace std;
 using namespace sf;
  const int windowWidth = 800;
  const int windowHeight = 600;
-  const int total_time=10;
  const string map_address="map.txt";
 int main()
 {
     RenderWindow window(VideoMode(windowWidth, windowHeight), "Playing with fire");
     Map new_map(map_address);
-    Game game(total_time,&new_map,map_address);
+    Game game(&new_map,map_address);
     game.create_enemies();
      while(window.isOpen())
      {
