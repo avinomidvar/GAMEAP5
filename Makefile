@@ -1,7 +1,7 @@
-all: a.out
+all: bomberman.out
 
-a.out: main.o Player.o Enemy.o Game.o Map.o Block_1.o Block_2.o Bomb.o Key.o Door.o Heart.o Shoes.o -lsfml-graphics -lsfml-window -lsfml-system
-	   g++ -std=c++20 main.o Player.o Enemy.o Game.o Map.o Block_1.o Block_2.o Bomb.o Key.o Door.o Heart.o Shoes.o -lsfml-graphics -lsfml-window -lsfml-system
+bomberman.out: main.o Player.o Enemy.o Game.o Map.o Block_1.o Block_2.o Bomb.o Key.o Door.o Heart.o Shoes.o -lsfml-graphics -lsfml-window -lsfml-system 
+	   g++ -std=c++20 main.o Player.o Enemy.o Game.o Map.o Block_1.o Block_2.o Bomb.o Key.o Door.o Heart.o Shoes.o -lsfml-graphics -lsfml-window -lsfml-system -o bomberman.out
 
 main.o: main.cpp Player.hpp Enemy.hpp
 	    g++ -std=c++20 -c main.cpp
