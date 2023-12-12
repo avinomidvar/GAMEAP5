@@ -4,7 +4,6 @@
 #include "Bomb.hpp"
 using namespace std;
 using namespace sf;
-const int speed=3;
 const int maximum_bombs=3;
 const int width=25;
 const int height=40;
@@ -27,6 +26,7 @@ Player::Player(int init_x,int init_y,Map* m)
     lives=total_lives;
     total_keys=0;
     create_bombs();
+    speed=3;
  
 }
 
@@ -210,6 +210,18 @@ bool Player::does_win()
         return true;
     else
         return false;
+}
+
+void Player::catch_hearts()
+{
+    if(map->does_player_intersect_heart(get_global_bounds()))
+        {
+            if(lives<(total_lives+1))
+               {
+                    lives++;
+                    cout<<"One life gained"<<endl;
+               }
+        }
 }
 
 

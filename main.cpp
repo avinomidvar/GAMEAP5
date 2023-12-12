@@ -12,7 +12,7 @@ using namespace std;
 using namespace sf;
  const int windowWidth = 800;
  const int windowHeight = 600;
- const int total_time=5;
+  const int total_time=10;
  const string map_address="map.txt";
 int main()
 {

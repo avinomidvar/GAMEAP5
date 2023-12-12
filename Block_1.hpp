@@ -1,11 +1,11 @@
 # include <iostream>
 #include <vector>
 #include <string>
-#include <cstring>
 #include <fstream>
 #include <iomanip>
 #include <SFML/Graphics.hpp>
 #include "Key.hpp"
+#include "Heart.hpp"
 #ifndef BLOCK_1
 #define BLOCK_1
 class Block_1
@@ -17,6 +17,7 @@ class Block_1
     void destroy(int destruct_x, int destruct_y);
     bool is_destroyed(){return is_destroy;};
     Key put_key_under();
+    Heart put_heart_under();
     
     private:
 	int x;

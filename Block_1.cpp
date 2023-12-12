@@ -5,6 +5,8 @@
 #include "Key.hpp"
 using namespace std;
 using namespace sf;
+const string key_address="Key.png";
+const string Heart_address="Heart.png";
 
 Block_1::Block_1(int init_x,int init_y,string address)
 {
@@ -55,7 +57,11 @@ void Block_1::destroy(int destruct_x, int destruct_y)
 
 Key Block_1::put_key_under()
 {
-     cout<<"I created a key in block_1"<<x+3<<" "<<y+3<<endl;
-    return(Key((x+3),(y+3),"Key.png"));
+    return(Key((x+3),(y+3),key_address));
+}
+
+Heart Block_1::put_heart_under()
+{
+    return(Heart((x+3),(y+3),Heart_address));
 }
 

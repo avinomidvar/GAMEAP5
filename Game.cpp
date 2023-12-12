@@ -41,6 +41,7 @@ void Game::update_player(RenderWindow& window)
 		player.update();
 		player.update_player_bombs(window);
 		player.catch_keys();
+		player.catch_hearts();
 }
 
 void Game::move_player(char direction)

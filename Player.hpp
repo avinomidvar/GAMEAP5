@@ -22,6 +22,7 @@ class Player
 		void update_player_bombs(sf::RenderWindow& window);
 		void drop_bomb();
 		void catch_keys();
+		void catch_hearts();
 		bool does_win();
 	private:
 		int x_position;
@@ -36,5 +37,6 @@ class Player
 		std::vector<Bomb> bombs;
 		int total_keys;
 		bool got_all_keys();
+		int speed;
 };
 #endif 

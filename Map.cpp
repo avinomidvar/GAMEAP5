@@ -22,6 +22,10 @@ const int window_width=800;
 const int n_vertical=32;
 const int n_horizontal=15;
 const int num_of_keys=3;
+const int num_of_powerups=2;
+const string block_1_address="Block_1.png";
+const string block_2_address="Block_2.png";
+const string Door_address="Door.png";
 
 Map::Map(string file_name)
 {
@@ -35,7 +39,7 @@ Map::Map(string file_name)
        row++;
     }
     file.close();
-    create_keys();
+    create_keys_and_powerups();
 }
 
 void Map::create_elements(string line,int row)
@@ -45,16 +49,18 @@ void Map::create_elements(string line,int row)
 		int x_position=i*width;
 		int y_position=row*height;
 		if ((line[i]=='B')||(line[i]=='D'))
-				blocks_1.push_back(Block_1(x_position,y_position,"Block_1.png"));
+				blocks_1.push_back(Block_1(x_position,y_position,block_1_address));
 		if(line[i]=='P')
-				blocks_2.push_back(Block_2(x_position,y_position,"Block_2.png"));
+				blocks_2.push_back(Block_2(x_position,y_position,block_2_address));
 		if(line[i]=='D')
-				doors.push_back(Door(x_position,y_position,"Door.png"));
+				doors.push_back(Door(x_position,y_position,Door_address));
 	}	
 }
 
 void Map::draw(RenderWindow& window)
 {
+	for (int i=0;i<hearts.size();i++)
+			hearts[i].draw(window);
 	for (int i=0;i<keys.size();i++)
 			keys[i].draw(window);
 	for (int i=0;i<doors.size();i++)
@@ -111,16 +117,17 @@ class Point
     int y;
 };
 
-void Map::create_keys()
+void Map::create_keys_and_powerups()
 {
 	srand(time(0));
 	vector<Block_1> temp_blocks=blocks_1;
 	random_shuffle(temp_blocks.begin(),temp_blocks.end());
-	for (int i=0;i<num_of_keys; i++)
+	for (int i=0;i<(num_of_keys); i++)
 	{
 		keys.push_back(temp_blocks[i].put_key_under());
 	}
-	cout<<keys.size()<<endl;
+	hearts.push_back(temp_blocks[num_of_keys].put_heart_under());
+
 }
 
 bool Map::does_player_intersect_keys(FloatRect bounds)
@@ -145,5 +152,16 @@ bool Map::does_player_intersect_door(FloatRect bounds)
  		}
  	}
  	return false;
+}
 
+bool Map::does_player_intersect_heart(FloatRect bounds)
+{
+	for (int i=0;i<hearts.size();i++)
+ 	{
+ 		if(hearts[i].get_global_bounds().intersects(bounds)&&(!hearts[i].is_found()))
+ 		{
+ 			return true;
+ 		}
+ 	}
+ 	return false;
 }

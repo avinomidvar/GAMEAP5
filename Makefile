@@ -1,7 +1,7 @@
 all: a.out
 
-a.out: main.o Player.o Enemy.o Game.o Map.o Block_1.o Block_2.o Bomb.o Key.o Door.o -lsfml-graphics -lsfml-window -lsfml-system
-	   g++ -std=c++20 main.o Player.o Enemy.o Game.o Map.o Block_1.o Block_2.o Bomb.o Key.o Door.o -lsfml-graphics -lsfml-window -lsfml-system
+a.out: main.o Player.o Enemy.o Game.o Map.o Block_1.o Block_2.o Bomb.o Key.o Door.o Heart.o -lsfml-graphics -lsfml-window -lsfml-system
+	   g++ -std=c++20 main.o Player.o Enemy.o Game.o Map.o Block_1.o Block_2.o Bomb.o Key.o Door.o Heart.o -lsfml-graphics -lsfml-window -lsfml-system
 
 main.o: main.cpp Player.hpp Enemy.hpp
 	    g++ -std=c++20 -c main.cpp
@@ -15,10 +15,10 @@ Player.o: Player.cpp Player.hpp Bomb.hpp
 Enemy.o: Enemy.cpp Enemy.hpp Map.hpp
 	g++ -std=c++20 -c Enemy.cpp
 
-Map.o: Map.cpp Map.hpp Block_1.hpp Block_2.hpp Enemy.hpp Key.hpp Door.hpp
+Map.o: Map.cpp Map.hpp Block_1.hpp Block_2.hpp Enemy.hpp Key.hpp Door.hpp Heart.hpp
 	g++ -std=c++20 -c Map.cpp
 
-Block_1.o: Block_1.cpp Block_1.hpp Key.hpp
+Block_1.o: Block_1.cpp Block_1.hpp Key.hpp Heart.hpp
 	g++ -std=c++20 -c Block_1.cpp
 
 Block_2.o: Block_2.cpp Block_2.hpp
@@ -32,6 +32,11 @@ Key.o: Key.cpp Key.hpp
 
 Door.o: Door.cpp Door.hpp
 	g++ -std=c++20 -c Door.cpp
+
+Heart.o: Heart.cpp Heart.hpp
+	g++ -std=c++20 -c Heart.cpp
+
+
 clean:
 	rm*.o
 	rm a.out 
