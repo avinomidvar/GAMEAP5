@@ -13,7 +13,7 @@ const int window_width=800;
 const int n_vertical=15;
 const int n_horizontal=32;
 const int num_of_keys=3;
-const int total_lives=2;
+const int total_lives=5;
 
 Player::Player(int init_x,int init_y,Map* m)
 {
@@ -112,7 +112,7 @@ void Player::update()
 void Player::loose_lives()
 {
     lives--;
-    cout<<lives<<endl;
+    cout<<"Remaining lives: "<<lives<<endl;
 }
 
 FloatRect Player::get_global_bounds() 
@@ -176,6 +176,12 @@ void Player::update_player_bombs(RenderWindow& window)
 {
     for(int i=0;i<maximum_bombs;i++)
     {
+        if(bombs[i].does_player_intersect_bomb(x_position,y_position))
+            loose_lives();
+    }
+        
+    for(int i=0;i<maximum_bombs;i++)
+    {
         bombs[i].check_end_of_bombs();
         if(bombs[i].is_on())
         {
@@ -205,5 +211,6 @@ bool Player::does_win()
     else
         return false;
 }
+
 
 

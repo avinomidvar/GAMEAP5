@@ -17,9 +17,6 @@ using namespace sf;
 int main()
 {
     RenderWindow window(VideoMode(windowWidth, windowHeight), "Playing with fire");
-    Clock clock_pass_time;
-    Clock clock_escape_time;
-    Clock time_since_start;
     Map new_map(map_address);
     Game game(total_time,&new_map,map_address);
     game.create_enemies();
@@ -28,27 +25,15 @@ int main()
      	Event event;
         window.clear(Color(255,127,39));
      	while(window.pollEvent(event))
-     	{
      		game.handle_events(event,window);
-     	}
-        if (clock_pass_time.getElapsedTime() >= milliseconds(50))
-        {
-            game.pass_time();
-            clock_pass_time.restart();
-        }
-
-        if (clock_escape_time.getElapsedTime() >= milliseconds(300))
-        {
-             game.does_player_intersect_enemies();
-             clock_escape_time.restart();
-         }
+        game.pass_time();
+        game.does_player_intersect_enemies();
         game.update_player(window);
-        game.show_time(time_since_start.getElapsedTime().asSeconds());
         game.draw(window);
         new_map.draw(window);
-         window.display();
-        if(game.is_over(time_since_start.getElapsedTime().asSeconds()))
-            break;
+        window.display();
+        if(game.is_over())
+           break;
     }
 
 }

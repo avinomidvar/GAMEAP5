@@ -15,14 +15,19 @@ const int window_width=800;
 
 void Game::pass_time()
 {
-	for (int i=0;i<enemies.size();i++)
+	if (clock_pass_time.getElapsedTime() >= milliseconds(50))
 	{
+	  for (int i=0;i<enemies.size();i++)
+	 {
 		enemies[i].update();
-	}
+	 }
+	   clock_pass_time.restart();
+    }
 }
 
 void Game::draw(RenderWindow& window)
 {
+	show_time(time_since_start.getElapsedTime().asSeconds());
 	window.draw(player.get_shape());
 	for (int i=0;i<enemies.size();i++)
 	{
@@ -59,11 +64,15 @@ void Game::move_player(char direction)
 
 void Game::does_player_intersect_enemies()
 {
+	if(clock_escape_time.getElapsedTime() >= milliseconds(400))
+	{
 	for (int i=0;i<enemies.size();i++)
 	{
 		if(player.get_global_bounds().intersects(enemies[i].get_global_bounds()))
 			player.loose_lives();
 	}
+	 clock_escape_time.restart();
+   }
 }
 
 void Game::handle_events(Event event,RenderWindow& window)
@@ -82,9 +91,10 @@ void Game::handle_events(Event event,RenderWindow& window)
          window.close();
 }
 
-bool Game::is_over(float time)
+bool Game::is_over()
 {
-	if(player.is_dead()||(time>=(game_time*60.0)))
+	float time=time_since_start.getElapsedTime().asSeconds();
+	if(player.is_dead()||(time>=game_time*60.0))
 	{
 		cout<<"GAME OVER!"<<endl;
 		return true;

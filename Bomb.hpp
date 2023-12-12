@@ -15,6 +15,7 @@ class Bomb
 		void draw(sf::RenderWindow& window);
 		bool is_on();
 		void check_end_of_bombs();
+		bool does_player_intersect_bomb(int player_x, int player_y);
 	private:
 		sf::Clock explosion;
 		bool state;

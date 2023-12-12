@@ -1,15 +1,15 @@
-        PPBP PP PPP PP PB PB PPB
-PB PPB P PBB BB PB  P B PB   BPB
+        PPBP PP PPP PP PB PB PPP
+PB PPB P PBB BB PB  P B PB   BPP
 B           H BB BBP B P  B  PPP
-PPPB       BPB         BB BPB  B
-B BBBBB         PBP V P  PP BP B
+PPPB       BPB         BB BPB  P
+B BBBBB         PBP V P  PP BP P
         P P V    P BBP         P
-BB       PPP  P P PPP B BPPP  PP
-P BPB B B PPP P  PBP      B PBPB
-PP  PPP  BB          PPB  PP  BB
+BB       PPP  P P PPP B B     PP
+P BPB B B PPP P  PBP      B PBPP
+PP  PPP  BB          PPB  PP  BP
 PP   P B P BBB  PB    B BP B PBP
-         BBBB B  B  PB         B
-P B      H  D     B BP BB  P PPB
-P B B BBBBP B BB    P P      BPB
-BP PPP    BPB               BPPP
+         BBBB B  B  PB         P
+P B      H  D     B BP BB  P PPP
+P B B B   P B BB    P P      BPP
+BP PPP    BPB                  P
 BPBBB  B     BP B               
